@@ -1,0 +1,20 @@
+body {
+    font-family: Ubuntu, Helvetica, Arial, sans-serif;
+}
+
+.navbar {
+    margin-bottom: 0;
+    padding: 8px 0;
+}
+
+.navbar-default {
+    border: none;
+}
+
+.alert {
+    border: none;
+}
+
+main {
+    padding: 30px 0;
+}
