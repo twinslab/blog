@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Post;
 
 class PostsController extends Controller {
 
@@ -11,7 +12,8 @@ class PostsController extends Controller {
 	 */
 	public function index()
 	{
-		//
+		$posts = Post::all();
+        return view('admin.posts.index')->with('posts', $posts);
 	}
 
 	/**
@@ -21,7 +23,7 @@ class PostsController extends Controller {
 	 */
 	public function create()
 	{
-		//
+		return view('admin.posts.create');
 	}
 
 	/**
@@ -42,7 +44,8 @@ class PostsController extends Controller {
 	 */
 	public function edit($id)
 	{
-		//
+        $post = Post::findOrFail($id);
+		return view('admin.posts.edit')->with('post', $post);
 	}
 
 	/**
