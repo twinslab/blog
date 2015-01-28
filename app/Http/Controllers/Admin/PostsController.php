@@ -12,7 +12,7 @@ class PostsController extends Controller {
 	 */
 	public function index()
 	{
-		$posts = Post::all();
+		$posts = Post::paginate(15);
         return view('admin.posts.index')->with('posts', $posts);
 	}
 
@@ -67,7 +67,15 @@ class PostsController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		//
+        Post::destroy($id);
+
+        return redirect()->route('admin.posts.index');
 	}
 
+    public function trash()
+    {
+        $posts = Post::onlyTrashed()->paginate(15);
+
+        return view('admin.posts.trash')->with('posts', $posts);
+    }
 }

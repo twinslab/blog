@@ -3,13 +3,10 @@
 @section('content')
     <div class="row">
         <div class="col-md-12">
-            <h2>All posts</h2>
-            <p>
-                <a href="{{ route('admin.posts.trash') }}">Trash</a>
-            </p>
-
-            @if($posts->isEmpty())
-                <p>{{ "There aren't any posts" }}</p>
+            <h2>Trash</h2>
+            <p><a href="">Empty Trash</a></p>
+             @if($posts->isEmpty())
+                <p>Nothing here.</p>
             @else
                 <table class="table table-hover">
                     <tr><th>Action</th><th>Title</th><th>Created</th></tr>
@@ -18,11 +15,12 @@
                                 <td>
                                     <?php echo Form::open(['method' => 'DELETE', 'route' => ['admin.posts.destroy', $post->id]]) ?>
                                         <button type="submit" href="{{ route('admin.posts.destroy', $post->id) }}" class="btn btn-xs
-                                         btn-danger form-button" title="Move to Trash"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+                                         btn-danger form-button" title="Remove permanently"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
                                     <?php echo Form::close() ?>
-                                    <a href="{{ route('admin.posts.edit', $post->id) }}" class="btn btn-xs btn-default" title="Edit">
-                                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                                    </a>
+                                    <?php echo Form::open(['method' => 'DELETE', 'route' => ['admin.posts.destroy', $post->id]]) ?>
+                                        <button type="submit" href="{{ route('admin.posts.destroy', $post->id) }}" class="btn btn-xs
+                                         btn-default form-button" title="Restore"><span class="glyphicon glyphicon-repeat" aria-hidden="true"></span></button>
+                                    <?php echo Form::close() ?>
                                 </td>
                                 <td>{{ $post->title }}</td>
                                 <td>{{ $post->created_at->diffForHumans() }}</td>
