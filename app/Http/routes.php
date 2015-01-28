@@ -25,9 +25,4 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function()
 		'except' => ['show']
 	]);
 
-    Route::get('posts/trash', [
-        'as' => 'admin.posts.trash',
-        'uses' => 'PostsController@trash'
-    ]);
-
 });

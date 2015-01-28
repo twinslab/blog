@@ -1,25 +1,29 @@
 <?php namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use App\Post;
 
 class PostsController extends Controller {
 
 	/**
-	 * Display a listing of the resource.
+	 * GET /admin/posts
+	 * Display a listing of all posts.
 	 *
-	 * @return Response
+	 * @return \Illuminate\View\View
 	 */
 	public function index()
 	{
 		$posts = Post::paginate(15);
-        return view('admin.posts.index')->with('posts', $posts);
+
+        return view('admin.posts.index', compact('posts'));
 	}
 
 	/**
-	 * Show the form for creating a new resource.
+	 * GET /admin/posts/create
+	 * Show the form for creating a new post.
 	 *
-	 * @return Response
+	 * @return \Illuminate\View\View
 	 */
 	public function create()
 	{
@@ -27,43 +31,52 @@ class PostsController extends Controller {
 	}
 
 	/**
-	 * Store a newly created resource in storage.
+	 * POST /admin/posts
+	 * Store a newly created post in database.
 	 *
-	 * @return Response
+	 * @param \Illuminate\Http\Request $request
+	 * @return \Illuminate\View\View
 	 */
-	public function store()
+	public function store(Request $request)
 	{
-		//
+		Post::create($request->all());
+
+		return redirect()->route('admin.posts.index');
 	}
 
 	/**
-	 * Show the form for editing the specified resource.
+	 * GET /admin/posts/{id}/edit
+	 * Show the form for editing the specified post.
 	 *
 	 * @param  int  $id
-	 * @return Response
+	 * @return \Illuminate\View\View
 	 */
 	public function edit($id)
 	{
         $post = Post::findOrFail($id);
-		return view('admin.posts.edit')->with('post', $post);
+
+		return view('admin.posts.edit', compact('post'));
 	}
 
 	/**
-	 * Update the specified resource in storage.
+	 * PUT /admin/posts/{id}
+	 * Update the specified post in database.
 	 *
+	 * @param \Illuminate\Http\Request $request
 	 * @param  int  $id
-	 * @return Response
+	 * @return \Illuminate\View\View
 	 */
-	public function update($id)
+	public function update(Request $request, $id)
 	{
 		//
 	}
 
 	/**
-	 * Remove the specified resource from storage.
+	 * DELETE /admin/posts/{id}
+	 * Remove the specified post from database.
 	 *
 	 * @param  int  $id
-	 * @return Response
+	 * @return \Illuminate\View\View
 	 */
 	public function destroy($id)
 	{
@@ -72,10 +85,4 @@ class PostsController extends Controller {
         return redirect()->route('admin.posts.index');
 	}
 
-    public function trash()
-    {
-        $posts = Post::onlyTrashed()->paginate(15);
-
-        return view('admin.posts.trash')->with('posts', $posts);
-    }
 }
