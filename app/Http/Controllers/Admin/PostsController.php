@@ -14,7 +14,7 @@ class PostsController extends Controller {
 	 */
 	public function index()
 	{
-		$posts = Post::paginate(15);
+        $posts = Post::paginate(15);
 
         return view('admin.posts.index', compact('posts'));
 	}
@@ -85,4 +85,43 @@ class PostsController extends Controller {
         return redirect()->route('admin.posts.index');
 	}
 
+    /**
+     * GET /admin/posts/trash
+     * Show trashed posts.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function showTrash()
+    {
+        $posts = Post::onlyTrashed()->paginate(15);
+
+        return view('admin.posts.trash', compact('posts'));
+    }
+
+    //not working but todo
+    /*public function emptyTrash()
+    {
+        dd('hello emptyTrash');
+        $posts = Post::onlyTrashed()->get();
+
+        foreach ($posts as $post) {
+            $post->forceDelete();
+        }
+
+        return redirect()->route('posts.trash.index');
+    }*/
+
+    public function restoreTrashed($id)
+    {
+        Post::onlyTrashed()->find($id)->restore();
+
+        return redirect()->route('posts.trash.index');
+    }
+
+    public function removeTrashed($id)
+    {
+        Post::onlyTrashed()->find($id)->forceDelete();
+
+        return redirect()->route('posts.trash.index');
+    }
 }

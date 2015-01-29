@@ -4,12 +4,17 @@
     <div class="row">
         <div class="col-md-12">
             <h2>All posts</h2>
+            <a href="{!! route('posts.trash.index') !!}">Trash</a>
 
             @if($posts->isEmpty())
                 <p>There no posts. Y u no blogging?</p>
             @else
                 <table class="table table-hover">
-                    <tr><th>Action</th><th>Title</th><th>Created</th></tr>
+                    <thead>
+                        <tr><th>Action</th><th>Title</th><th>Created</th></tr>
+                    </thead>
+                    <tbody>
+
                     @foreach($posts as $post)
                         <tr>
                             <td>
@@ -25,6 +30,8 @@
                             <td>{{ $post->created_at->diffForHumans() }}</td>
                         </tr>
                     @endforeach
+
+                    </tbody>
                 </table>
 
                 {!! $posts->render() !!}

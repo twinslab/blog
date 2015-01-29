@@ -25,4 +25,26 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function()
 		'except' => ['show']
 	]);
 
+    /* Soft Deletion routes */
+    Route::get('posts/trash', [
+        'as' => 'posts.trash.index',
+        'uses' => 'PostsController@showTrash'
+    ]);
+
+    //not working for a mysterious reason
+    /*Route::delete('posts/trash', [
+        'as' => 'posts.trash.empty',
+        'uses' => 'PostsController@emptyTrash'
+    ]);*/
+
+    Route::put('posts/trash/{id}', [
+        'as' => 'posts.trash.restore',
+        'uses' => 'PostsController@restoreTrashed'
+    ]);
+
+    Route::delete('posts/trash/{id}', [
+        'as' => 'posts.trash.remove',
+        'uses' => 'PostsController@removeTrashed'
+    ]);
 });
+
