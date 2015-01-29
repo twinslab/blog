@@ -14,6 +14,11 @@ Route::resource('posts', 'PostsController', [
 	'only' => ['index', 'show']
 ]);
 
+/*
+|--------------------------------------------------------------------------
+| Admin Routes
+|--------------------------------------------------------------------------
+*/
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function()
 {
 	Route::get('/', [
@@ -21,21 +26,15 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function()
 		'uses' => 'AdminController@index'
 	]);
 
-	Route::resource('posts', 'PostsController', [
-		'except' => ['show']
-	]);
-
-    /* Soft Deletion routes */
+    /*
+	|----------------------------------------------------------------------
+	| Soft-Deletion Routes
+	|----------------------------------------------------------------------
+	*/
     Route::get('posts/trash', [
         'as' => 'posts.trash.index',
         'uses' => 'PostsController@showTrash'
     ]);
-
-    //not working for a mysterious reason
-    /*Route::delete('posts/trash', [
-        'as' => 'posts.trash.empty',
-        'uses' => 'PostsController@emptyTrash'
-    ]);*/
 
     Route::put('posts/trash/{id}', [
         'as' => 'posts.trash.restore',
@@ -46,5 +45,20 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function()
         'as' => 'posts.trash.remove',
         'uses' => 'PostsController@removeTrashed'
     ]);
+
+    Route::delete('posts/trash', [
+        'as' => 'posts.trash.empty',
+        'uses' => 'PostsController@emptyTrash'
+    ]);
+    /*
+	|----------------------------------------------------------------------
+    */
+
+    Route::resource('posts', 'PostsController', [
+        'except' => ['show']
+    ]);
 });
+/*
+|--------------------------------------------------------------------------
+*/
 

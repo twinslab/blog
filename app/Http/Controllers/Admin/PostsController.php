@@ -98,10 +98,14 @@ class PostsController extends Controller {
         return view('admin.posts.trash', compact('posts'));
     }
 
-    //not working but todo
-    /*public function emptyTrash()
+    /**
+     * DELETE /admin/posts/trash
+     * Hard delete all soft-deleted posts.
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function emptyTrash()
     {
-        dd('hello emptyTrash');
         $posts = Post::onlyTrashed()->get();
 
         foreach ($posts as $post) {
@@ -109,8 +113,14 @@ class PostsController extends Controller {
         }
 
         return redirect()->route('posts.trash.index');
-    }*/
+    }
 
+    /**
+     * PUT /admin/posts/trash/{id}
+     * Restore soft-deleted post.
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function restoreTrashed($id)
     {
         Post::onlyTrashed()->find($id)->restore();
@@ -118,6 +128,12 @@ class PostsController extends Controller {
         return redirect()->route('posts.trash.index');
     }
 
+    /**
+     * DELETE /admin/posts/trash/{id}
+     * Hard delete a soft-deleted post.
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function removeTrashed($id)
     {
         Post::onlyTrashed()->find($id)->forceDelete();

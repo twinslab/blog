@@ -9,31 +9,35 @@
                 <p>Nothing here.</p>
             @else
 
-                <?php echo Form::open(['method' => 'PUT']) ?>
-                    <button type="submit" class="btn btn-link">Empty Trash</button>
-                <?php echo Form::close() ?>
+                {!! Form::open(['method' => 'DELETE']) !!}
+                    <button type="submit" class="btn btn-xs btn-danger">Empty Trash</button>
+                {!! Form::close() !!}
 
                 <table class="table table-hover">
-                    <tr><th>Action</th><th>Title</th><th>Created</th></tr>
-                    @foreach($posts as $post)
-                            <tr>
-                                <td>
-                                    <?php echo Form::open(['method' => 'DELETE', 'route' => ['posts.trash.remove', $post->id]]) ?>
-                                        <button type="submit" class="btn btn-xs
-                                         btn-danger form-button" title="Remove permanently"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-                                    <?php echo Form::close() ?>
-                                    <?php echo Form::open(['method' => 'PUT', 'route' => ['posts.trash.restore', $post->id]]) ?>
-                                        <button type="submit" class="btn btn-xs
-                                         btn-default form-button" title="Restore"><span class="glyphicon glyphicon-repeat" aria-hidden="true"></span></button>
-                                    <?php echo Form::close() ?>
-                                </td>
-                                <td>{{ $post->title }}</td>
-                                <td>{{ $post->created_at->diffForHumans() }}</td>
-                            </tr>
-                    @endforeach
+                    <thead>
+                        <tr><th>Action</th><th>Title</th><th>Created</th></tr>
+                    </thead>
+                    <tbody>
+                        @foreach($posts as $post)
+                                <tr>
+                                    <td>
+                                        {!! Form::open(['method' => 'DELETE', 'route' => ['posts.trash.remove', $post->id]]) !!}
+                                            <button type="submit" class="btn btn-xs
+                                             btn-danger form-button" title="Remove permanently"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                                        {!! Form::close() !!}
+                                        {!! Form::open(['method' => 'PUT', 'route' => ['posts.trash.restore', $post->id]]) !!}
+                                            <button type="submit" class="btn btn-xs
+                                             btn-default form-button" title="Restore"><span class="glyphicon glyphicon-repeat" aria-hidden="true"></span></button>
+                                        {!! Form::close() !!}
+                                    </td>
+                                    <td>{{ $post->title }}</td>
+                                    <td>{{ $post->created_at->diffForHumans() }}</td>
+                                </tr>
+                        @endforeach
+                    </tbody>
                 </table>
 
-                <?php echo $posts->render() ?>
+                {!! $posts->render() !!}
             @endif
         </div>
     </div>
