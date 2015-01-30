@@ -68,7 +68,10 @@ class PostsController extends Controller {
 	 */
 	public function update(Request $request, $id)
 	{
-		//
+        $post = Post::find($id);
+        $post->update($request->all());
+
+        return redirect()->route('admin.posts.index');
 	}
 
 	/**

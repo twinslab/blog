@@ -24,3 +24,7 @@ main {
     margin-right: 3px;
     margin-bottom: 2px;
 }
+
+textarea.resize-v {
+    resize:vertical;
+}
