@@ -3,8 +3,8 @@
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Post extends Model {
-
+class Post extends Model
+{
     use SoftDeletes;
 
     protected $dates = ['deleted_at'];
@@ -22,5 +22,4 @@ class Post extends Model {
      * @var array
      */
     protected $fillable = ['title', 'slug', 'content'];
-
 }

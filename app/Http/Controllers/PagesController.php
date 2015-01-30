@@ -2,7 +2,8 @@
 
 use Lang;
 
-class PagesController extends Controller {
+class PagesController extends Controller
+{
 
 	public function __construct()
 	{
@@ -22,5 +23,4 @@ class PagesController extends Controller {
 
 		return view('pages.home', $data);
 	}
-
 }

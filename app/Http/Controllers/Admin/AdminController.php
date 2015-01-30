@@ -2,8 +2,11 @@
 
 use App\Http\Controllers\Controller;
 
-class AdminController extends Controller {
-
+class AdminController extends Controller
+{
+    /**
+     * The constructor/
+     */
     public function __construct()
     {
         $this->middleware('auth');
@@ -18,5 +21,4 @@ class AdminController extends Controller {
     {
         return view('admin.index');
     }
-
 }

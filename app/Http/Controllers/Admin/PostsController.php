@@ -4,9 +4,26 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Post;
 
-class PostsController extends Controller {
+class PostsController extends Controller
+{
+    /**
+     * Post instance.
+     *
+     * @var \App\Post
+     */
+    protected $posts;
 
-	/**
+    /**
+     * The constructor.
+     *
+     * @param \App\Post $posts
+     */
+    public function __construct(Post $posts)
+    {
+        $this->posts = $posts;
+    }
+
+    /**
 	 * GET /admin/posts
 	 * Display a listing of all posts.
 	 *
@@ -14,7 +31,7 @@ class PostsController extends Controller {
 	 */
 	public function index()
 	{
-        $posts = Post::paginate(15);
+        $posts = $this->posts->paginate(15);
 
         return view('admin.posts.index', compact('posts'));
 	}
@@ -39,7 +56,7 @@ class PostsController extends Controller {
 	 */
 	public function store(Request $request)
 	{
-		Post::create($request->all());
+		$this->posts->create($request->all());
 
 		return redirect()->route('admin.posts.index');
 	}
@@ -53,7 +70,7 @@ class PostsController extends Controller {
 	 */
 	public function edit($id)
 	{
-        $post = Post::findOrFail($id);
+        $post = $this->posts->findOrFail($id);
 
 		return view('admin.posts.edit', compact('post'));
 	}
@@ -68,7 +85,8 @@ class PostsController extends Controller {
 	 */
 	public function update(Request $request, $id)
 	{
-        $post = Post::find($id);
+        $post = $this->posts->find($id);
+
         $post->update($request->all());
 
         return redirect()->route('admin.posts.index');
@@ -83,7 +101,7 @@ class PostsController extends Controller {
 	 */
 	public function destroy($id)
 	{
-        Post::destroy($id);
+        $this->posts->destroy($id);
 
         return redirect()->route('admin.posts.index');
 	}
@@ -96,7 +114,7 @@ class PostsController extends Controller {
      */
     public function showTrash()
     {
-        $posts = Post::onlyTrashed()->paginate(15);
+        $posts = $this->posts->onlyTrashed()->paginate(15);
 
         return view('admin.posts.trash', compact('posts'));
     }
@@ -109,7 +127,7 @@ class PostsController extends Controller {
      */
     public function emptyTrash()
     {
-        $posts = Post::onlyTrashed()->get();
+        $posts = $this->posts->onlyTrashed()->get();
 
         foreach ($posts as $post) {
             $post->forceDelete();
@@ -126,7 +144,7 @@ class PostsController extends Controller {
      */
     public function restoreTrashed($id)
     {
-        Post::onlyTrashed()->find($id)->restore();
+        $this->posts->onlyTrashed()->find($id)->restore();
 
         return redirect()->route('posts.trash.index');
     }
@@ -139,7 +157,7 @@ class PostsController extends Controller {
      */
     public function removeTrashed($id)
     {
-        Post::onlyTrashed()->find($id)->forceDelete();
+        $this->posts->onlyTrashed()->find($id)->forceDelete();
 
         return redirect()->route('posts.trash.index');
     }

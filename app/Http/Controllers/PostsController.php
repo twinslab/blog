@@ -4,30 +4,29 @@ use App\Http\Requests;
 use App\Post;
 use League\CommonMark\CommonMarkConverter;
 
-class PostsController extends Controller {
-
-
+class PostsController extends Controller
+{
 	/**
 	 * Post instance.
 	 *
-	 * @var App\Post
+	 * @var \App\Post
      */
 	protected $posts;
-
 
 	/**
 	 * The constructor.
 	 *
-	 * @param App\Post $posts
+	 * @param \App\Post $posts
      */
 	public function __construct(Post $posts)
 	{
 		$this->posts = $posts;
 	}
+
 	/**
 	 * Display a listing of the resource.
 	 *
-	 * @return Response
+	 * @return \Illuminate\View\View
 	 */
 	public function index()
 	{
@@ -39,15 +38,14 @@ class PostsController extends Controller {
      *
      * @param CommonMarkConverter $converter
      * @param  int $id
-     * @return Response
+     * @return \Illuminate\View\View
      */
 	public function show(CommonMarkConverter $converter, $id)
 	{
-        $post = Post::findOrFail($id);
+        $post = $this->posts->findOrFail($id);
 
         $post->content = $converter->convertToHtml($post->content);
 
 		return view('posts.show', compact('post'));
 	}
-
 }
