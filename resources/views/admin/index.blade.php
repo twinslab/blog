@@ -4,7 +4,10 @@
     <div class="row">
         <div class="col-md-12">
             <h2>Admin panel</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et quaerat rem veniam.</p>
+            <ul class="list-unstyled">
+                <li><a href="{{ route('admin.posts.index') }}">Manage posts</a></li>
+                <li><a href="{{ url('auth/logout') }}">Logout</a></li>
+            </ul>
         </div>
     </div>
 @endsection

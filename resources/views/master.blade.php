@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="author" content="Nikos Gr">
+	<meta name="author" content="Twinslab">
 	<meta name="description" content="{{ $pageDesc or Lang::get('defaults.pageDesc') }}">
 	<title>{{ $pageTitle or Lang::get('defaults.pageTitle') }} | Blog</title>
 

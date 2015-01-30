@@ -15,24 +15,36 @@
 
                 <table class="table table-hover">
                     <thead>
-                        <tr><th>Action</th><th>Title</th><th>Created</th></tr>
+                        <tr>
+                            <th>Title</th>
+                            <th>Created</th>
+                            <th>Action</th>
+                        </tr>
                     </thead>
                     <tbody>
                         @foreach($posts as $post)
-                                <tr>
-                                    <td>
-                                        {!! Form::open(['method' => 'DELETE', 'route' => ['posts.trash.remove', $post->id]]) !!}
-                                            <button type="submit" class="btn btn-xs
-                                             btn-danger form-button" title="Remove permanently"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-                                        {!! Form::close() !!}
-                                        {!! Form::open(['method' => 'PUT', 'route' => ['posts.trash.restore', $post->id]]) !!}
-                                            <button type="submit" class="btn btn-xs
-                                             btn-default form-button" title="Restore"><span class="glyphicon glyphicon-repeat" aria-hidden="true"></span></button>
-                                        {!! Form::close() !!}
-                                    </td>
-                                    <td>{{ $post->title }}</td>
-                                    <td>{{ $post->created_at->diffForHumans() }}</td>
-                                </tr>
+                            <tr>
+                                <td>{{ $post->title }}</td>
+                                <td>{{ $post->created_at->diffForHumans() }}</td>
+                                <td>
+                                    <ul class="list-inline">
+                                        <li>
+                                            {!! Form::open(['method' => 'PUT', 'route' => ['posts.trash.restore', $post->id]]) !!}
+                                            <button type="submit" class="btn btn-xs btn-default" title="Restore">
+                                                <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
+                                            </button>
+                                            {!! Form::close() !!}
+                                        </li>
+                                        <li>
+                                            {!! Form::open(['method' => 'DELETE', 'route' => ['posts.trash.remove', $post->id]]) !!}
+                                                <button type="submit" class="btn btn-xs btn-danger" title="Remove permanently">
+                                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                                </button>
+                                            {!! Form::close() !!}
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
                         @endforeach
                     </tbody>
                 </table>

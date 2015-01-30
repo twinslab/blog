@@ -13,6 +13,11 @@
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="navbar-collapse">
+            @if (Auth::check())
+                <ul class="nav navbar-nav navbar-left">
+                    <li><a href="{{ route('admin.index') }}">Admin</a></li>
+                </ul>
+            @endif
             <form class="navbar-form navbar-right" role="search">
                 <div class="form-group">
                     <input type="text" class="form-control">
