@@ -10,7 +10,8 @@
             @else
 
                 {!! Form::open(['method' => 'DELETE']) !!}
-                    <button type="submit" class="btn btn-xs btn-danger">Empty Trash</button>
+                    <button type="submit" class="btn btn-xs btn-danger"
+                    onclick="return confirm('Are you sure you want to permanently delete all posts?');">Empty Trash</button>
                 {!! Form::close() !!}
 
                 <table class="table table-hover">
@@ -37,7 +38,8 @@
                                         </li>
                                         <li>
                                             {!! Form::open(['method' => 'DELETE', 'route' => ['posts.trash.remove', $post->id]]) !!}
-                                                <button type="submit" class="btn btn-xs btn-danger" title="Remove permanently">
+                                                <button type="submit" class="btn btn-xs btn-danger" title="Remove permanently"
+                                                onclick="return confirm('Are you sure you want to permanently delete this post?');">
                                                     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                                 </button>
                                             {!! Form::close() !!}

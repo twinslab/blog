@@ -3,9 +3,11 @@
 @section('content')
     <div class="row">
         <div class="col-md-12">
-            <h2>All posts</h2>
+
+            <a href="{{ route('admin.posts.create') }}">New</a>
             <a href="{{ route('posts.trash.index') }}">Trash</a>
 
+            <h2>All posts</h2>
             @if($posts->isEmpty())
                 <p>There no posts. Y u no blogging?</p>
             @else
@@ -31,7 +33,8 @@
                                         </li>
                                         <li>
                                             {!! Form::open(['method' => 'DELETE', 'route' => ['admin.posts.destroy', $post->id]]) !!}
-                                            <button type="submit" class="btn btn-xs btn-danger" title="Move to Trash">
+                                            <button type="submit" class="btn btn-xs btn-danger" title="Move to Trash"
+                                            onclick="return confirm('Are you sure you want to delete this post?');">
                                                 <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                             </button>
                                             {!! Form::close() !!}
