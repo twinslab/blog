@@ -24,7 +24,7 @@ class PostsController extends Controller
 	}
 
 	/**
-	 * Display a listing of the resource.
+	 * Display a listing of all posts.
 	 *
 	 * @return \Illuminate\View\View
 	 */
@@ -33,18 +33,15 @@ class PostsController extends Controller
 		return view('posts.index');
 	}
 
-    /**
-     * Display the specified resource.
-     *
-     * @param CommonMarkConverter $converter
-     * @param  int $id
-     * @return \Illuminate\View\View
-     */
-	public function show(CommonMarkConverter $converter, $id)
+	/**
+	 * Display the specified post.
+	 *
+	 * @param  int $id
+	 * @return \Illuminate\View\View
+	 */
+	public function show($id)
 	{
         $post = $this->posts->findOrFail($id);
-
-        $post->content = $converter->convertToHtml($post->content);
 
 		return view('posts.show', compact('post'));
 	}

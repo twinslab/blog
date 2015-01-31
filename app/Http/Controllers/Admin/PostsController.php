@@ -3,6 +3,7 @@
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Post;
+use League\CommonMark\CommonMarkConverter;
 
 class PostsController extends Controller
 {
@@ -31,7 +32,7 @@ class PostsController extends Controller
 	 */
 	public function index()
 	{
-        $posts = $this->posts->paginate(15);
+        $posts = $this->posts->orderBy('created_at', 'desc')->paginate(15);
 
         return view('admin.posts.index', compact('posts'));
 	}
@@ -75,17 +76,21 @@ class PostsController extends Controller
 		return view('admin.posts.edit', compact('post'));
 	}
 
-	/**
-	 * PUT /admin/posts/{id}
-	 * Update the specified post in database.
-	 *
-	 * @param \Illuminate\Http\Request $request
-	 * @param  int  $id
-	 * @return \Illuminate\View\View
-	 */
-	public function update(Request $request, $id)
+    /**
+     * PUT /admin/posts/{id}
+     * Update the specified post in database.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param \League\CommonMark\CommonMarkConverter $converter
+     * @param  int $id
+     * @return \Illuminate\View\View
+     */
+	public function update(Request $request, CommonMarkConverter $converter, $id)
 	{
         $post = $this->posts->find($id);
+
+        // Convert markdown to html and store in database
+        $post->content_html = $converter->convertToHtml($request->get('content_md'));
 
         $post->update($request->all());
 
