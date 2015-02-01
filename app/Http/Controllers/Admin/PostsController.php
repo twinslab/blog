@@ -48,16 +48,22 @@ class PostsController extends Controller
 		return view('admin.posts.create');
 	}
 
-	/**
-	 * POST /admin/posts
-	 * Store a newly created post in database.
-	 *
-	 * @param \Illuminate\Http\Request $request
-	 * @return \Illuminate\View\View
-	 */
-	public function store(Request $request)
+    /**
+     * POST /admin/posts
+     * Store a newly created post in database.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param \League\CommonMark\CommonMarkConverter $converter
+     * @return \Illuminate\View\View
+     */
+	public function store(Request $request, CommonMarkConverter $converter)
 	{
-		$this->posts->create($request->all());
+        $input = $request->all();
+
+        // Convert markdown to html and insert it in the input array
+        $input['content_html'] = $converter->convertToHtml($request->get('content_md'));
+
+        $this->posts->create($input);
 
 		return redirect()->route('admin.posts.index');
 	}

@@ -17,8 +17,8 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="content">Content</label>
-                    <textarea id="content" name="content" class="form-control" rows="15"></textarea>
+                    <label for="content_md">Content</label>
+                    <textarea id="content_md" name="content_md" class="form-control" rows="15"></textarea>
                 </div>
 
                 <input type="submit" value="Submit" class="btn btn-primary">
