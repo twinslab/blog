@@ -12,12 +12,16 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="title">Slug</label>
+                    <input type="text" id="slug" name="slug" class="form-control">
+                </div>
+
+                <div class="form-group">
                     <label for="content">Content</label>
-                    <textarea id="content" name="content" class="form-control resize-v" rows="15"></textarea>
+                    <textarea id="content" name="content" class="form-control" rows="15"></textarea>
                 </div>
 
                 <input type="submit" value="Submit" class="btn btn-primary">
-                <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
             {!! Form::close() !!}
         </div>
     </div>

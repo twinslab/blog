@@ -16,7 +16,7 @@ class CreatePostsTable extends Migration {
 		{
 			$table->increments('id');
 			$table->string('title');
-			$table->string('slug');
+			$table->string('slug')->unique();
 			$table->text('content_md');   // markdown content for easy and efficient editing
 			$table->text('content_html'); // parsed html content for cheap and fast page loads
 			$table->timestamps();

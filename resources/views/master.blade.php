@@ -10,7 +10,7 @@
 
 	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Ubuntu&subset=latin,greek"/>
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
-	<link rel="stylesheet" href="/css/custom.css"/>
+	<link rel="stylesheet" href="{!! asset('assets/css/main.css') !!}"/>
 </head>
 <body>
 	@include('includes.nav')
@@ -22,9 +22,9 @@
 		</div>
 	</main>
 
-
 	<!-- Scripts -->
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+	<script src="{!! asset('assets/js/main.js') !!}"></script>
 </body>
 </html>
