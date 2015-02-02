@@ -36,12 +36,12 @@ class PostsController extends Controller
 	/**
 	 * Display the specified post.
 	 *
-	 * @param  int $id
+	 * @param string $slug
 	 * @return \Illuminate\View\View
 	 */
-	public function show($id)
+	public function show($slug)
 	{
-        $post = $this->posts->findOrFail($id);
+        $post = $this->posts->where('slug', $slug)->firstOrFail();
 
 		return view('posts.show', compact('post'));
 	}
