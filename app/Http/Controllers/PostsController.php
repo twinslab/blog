@@ -2,7 +2,6 @@
 
 use App\Http\Requests;
 use App\Post;
-use League\CommonMark\CommonMarkConverter;
 
 class PostsController extends Controller
 {
