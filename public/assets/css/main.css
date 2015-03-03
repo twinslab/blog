@@ -2,6 +2,10 @@ body {
     font-family: Ubuntu, Helvetica, Arial, sans-serif;
 }
 
+.row {
+    margin-bottom: 50px;
+}
+
 .navbar {
     margin-bottom: 0;
     padding: 8px 0;
@@ -21,4 +25,10 @@ main {
 
 textarea {
     resize: vertical;
+}
+
+ul#tags li > span{
+    display: inline-block;
+    float:left;
+    margin-right:10px;
 }

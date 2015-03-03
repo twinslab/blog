@@ -57,6 +57,10 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function()
     Route::resource('posts', 'PostsController', [
         'except' => ['show']
     ]);
+
+    Route::resource('tags', 'TagsController', [
+        'except' => ['show', 'edit', 'create']
+    ]);
 });
 /*
 |--------------------------------------------------------------------------
