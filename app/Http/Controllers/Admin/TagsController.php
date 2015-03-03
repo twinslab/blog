@@ -36,7 +36,7 @@ class TagsController extends Controller {
 	{
         $tags = $this->tags->all();
 
-		return view('admin.tags.index', compact('tags', $tags));
+		return view('admin.tags.index', compact('tags'));
 	}
 
 	/**

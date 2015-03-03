@@ -13,9 +13,15 @@
     <textarea name="content_md" id="content_md" class="form-control" rows="15">{{ isset($post->content_md)?$post->content_md:null }}</textarea>
 </div>
 
-<div class="form-group">
-    <label for="tags">Tags</label>
-    <input value="{{ isset($post->tags)?$post->tags:null }}" name="tags" id="tags" class="form-control">
-</div>
+@unless (empty($tags))
+    <div class="form-group">
+        <label for="tags">Tags</label>
+        <select name="tags[]" id="tags" class="form-control" multiple>
+            @foreach ($tags as $id => $name)
+                <option {{ !empty($post) && in_array($id, $post->tags->lists('id')) ? 'selected' : '' }} value="{{ $id }}">{{ $name }}</option>
+            @endforeach
+        </select>
+    </div>
+@endunless
 
 <input type="submit" value="{!! $submitText !!}" class="btn btn-primary">

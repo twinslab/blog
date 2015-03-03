@@ -1,8 +1,9 @@
 <?php namespace App\Http\Controllers\Admin;
 
+use App\Tag;
+use App\Post;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Post;
 use League\CommonMark\CommonMarkConverter;
 
 class PostsController extends Controller
@@ -15,13 +16,22 @@ class PostsController extends Controller
     protected $posts;
 
     /**
+     * Tags instance
+     *
+     * @var \App\Tag
+     */
+    protected $tags;
+
+    /**
      * The constructor.
      *
      * @param \App\Post $posts
+     * @param \App\Tag $tags
      */
-    public function __construct(Post $posts)
+    public function __construct(Post $posts, Tag $tags)
     {
         $this->posts = $posts;
+        $this->tags = $tags;
     }
 
     /**
@@ -45,7 +55,10 @@ class PostsController extends Controller
 	 */
 	public function create()
 	{
-		return view('admin.posts.create');
+        // returns an array with tags like this: [id => name, ...]
+        $tags = $this->tags->lists('name', 'id');
+
+		return view('admin.posts.create', compact('tags'));
 	}
 
     /**
@@ -59,11 +72,13 @@ class PostsController extends Controller
 	public function store(Request $request, CommonMarkConverter $converter)
 	{
         $input = $request->all();
+        $tags = $input['tags'];
 
         // Convert markdown to html and insert it in the input array
         $input['content_html'] = $converter->convertToHtml($request->get('content_md'));
 
-        $this->posts->create($input);
+        $post = $this->posts->create($input);
+        $post->tags()->attach($tags);
 
 		return redirect()->route('admin.posts.index');
 	}
@@ -77,9 +92,12 @@ class PostsController extends Controller
 	 */
 	public function edit($id)
 	{
+        // returns an array with tags like this [id => name]
+        $tags = $this->tags->lists('name', 'id');
+
         $post = $this->posts->findOrFail($id);
 
-		return view('admin.posts.edit', compact('post'));
+		return view('admin.posts.edit', compact('post', 'tags'));
 	}
 
     /**
@@ -99,6 +117,9 @@ class PostsController extends Controller
         $post->content_html = $converter->convertToHtml($request->get('content_md'));
 
         $post->update($request->all());
+
+        // sync makes sure that there aren't duplicate entries for a post-tag pair in the pivot table
+        $post->tags()->sync($request->input('tags'));
 
         return redirect()->route('admin.posts.index');
 	}

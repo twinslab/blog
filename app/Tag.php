@@ -17,4 +17,14 @@ class Tag extends Model
      * @var array
      */
     protected $fillable = ['name'];
+
+    /**
+     * Get posts associated with a tag.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function posts()
+    {
+        return $this->belongsToMany('App\Post');
+    }
 } 

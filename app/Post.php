@@ -22,4 +22,14 @@ class Post extends Model
      * @var array
      */
     protected $fillable = ['title', 'slug', 'content_md', 'content_html'];
+
+    /**
+     * Get the tags associated with the post.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function tags()
+    {
+        return  $this->belongsToMany('App\Tag')->withTimestamps();
+    }
 }
