@@ -1,12 +1,21 @@
 <?php namespace App\Http\Controllers;
 
+use App\Post;
 use Lang;
 
 class PagesController extends Controller
 {
+    /**
+     * @var \App\Post instance.
+     */
+    protected $posts;
 
-	public function __construct()
+    /**
+     * @param Post $posts
+     */
+    public function __construct(Post $posts)
 	{
+        $this->posts = $posts;
 		//$this->middleware('guest');
 	}
 
@@ -17,8 +26,11 @@ class PagesController extends Controller
 	 */
 	public function home()
 	{
+        $posts = $this->posts->latest()->paginate();
+
 		$data = [
-			'pageTitle' => Lang::get('pages/home.pageTitle')
+			'pageTitle' => Lang::get('pages/home.pageTitle'),
+            'posts' => $posts
 		];
 
 		return view('pages.home', $data);
