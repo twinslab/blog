@@ -21,7 +21,7 @@
     <div class="row">
         <div class="col-md-6">
             @if(! empty($tags))
-                <ul id="tags">
+                <ul id="tags" class="list-unstyled">
                     @foreach($tags as $tag)
                         <li>
                             <span>{{ $tag->name }}</span>

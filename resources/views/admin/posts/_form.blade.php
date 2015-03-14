@@ -25,3 +25,10 @@
 @endunless
 
 <input type="submit" value="{!! $submitText !!}" class="btn btn-primary">
+
+@section('scripts')
+    <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0-rc.1/js/select2.min.js"></script>
+    <script>
+        $('#tags').select2();
+    </script>
+@stop
