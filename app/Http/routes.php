@@ -5,6 +5,11 @@ Route::get('/', [
 	'uses' => 'PagesController@home'
 ]);
 
+Route::get('about', [
+    'as' => 'about',
+    'uses' => 'PagesController@about'
+]);
+
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',

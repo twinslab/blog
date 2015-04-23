@@ -2,7 +2,7 @@
 
 @section('content')
 	<div class="row">
-		<div class="col-md-12">
+		<div class="col-md-6">
 			<h1>Recent Posts</h1>
 
             @foreach($posts as $post)
@@ -12,7 +12,9 @@
                 </div>
             @endforeach
 
-            <?php echo $posts->render(); ?>
+            <hr>
+            <a href="{{ route('posts.index') }}">See all</a>
+
 		</div>
 	</div>
 @endsection

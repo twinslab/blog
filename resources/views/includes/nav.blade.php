@@ -15,18 +15,18 @@
         <div class="collapse navbar-collapse" id="navbar-collapse">
             @if (Auth::check())
                 <ul class="nav navbar-nav navbar-left">
-                    <li><a href="{{ route('admin.index') }}">Admin</a></li>
+                    <li><a href="{{ route('about') }}">About</a></li>
                 </ul>
             @endif
-            <form class="navbar-form navbar-right" role="search">
+            {{--<form class="navbar-form navbar-right" role="search">
                 <div class="form-group">
                     <input type="text" class="form-control">
                 </div>
                 <button type="submit" class="btn btn-default">Search</button>
-            </form>
+            </form>--}}
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="{{ route('posts.index') }}">Posts</a></li>
-                <li><a href="{{ route('home') }}">Topics</a></li>
+                {{-- <li><a href="{{ route('home') }}">Topics</a></li> --}}
                 <li><a href="{{ route('tags.index')  }}">Tags</a></li>
             </ul>
         </div><!-- /.navbar-collapse -->

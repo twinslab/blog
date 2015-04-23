@@ -26,7 +26,7 @@ class PagesController extends Controller
 	 */
 	public function home()
 	{
-        $posts = $this->posts->latest()->paginate();
+        $posts = $this->posts->latest()->take(5)->get();
 
 		$data = [
 			'pageTitle' => Lang::get('pages/home.pageTitle'),
@@ -35,4 +35,18 @@ class PagesController extends Controller
 
 		return view('pages.home', $data);
 	}
+
+    /**
+     * GET /about
+     *
+     * return Response
+     */
+    public function about()
+    {
+        $data = [
+            'pageTitle' => 'About'
+        ];
+
+        return view('pages.about', $data);
+    }
 }
