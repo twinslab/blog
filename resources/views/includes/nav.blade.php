@@ -27,7 +27,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="{{ route('posts.index') }}">Posts</a></li>
                 <li><a href="{{ route('home') }}">Topics</a></li>
-                <li><a href="{{ route('home')  }}">Tags</a></li>
+                <li><a href="{{ route('tags.index')  }}">Tags</a></li>
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->

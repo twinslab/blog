@@ -14,6 +14,16 @@ Route::resource('posts', 'PostsController', [
 	'only' => ['index', 'show']
 ]);
 
+Route::get('tags', [
+    'as' => 'tags.index',
+    'uses' => 'TagsController@index'
+]);
+
+Route::get('tags/{tagSlug}', [
+    'as' => 'tag.show',
+    'uses' => 'TagsController@show'
+]);
+
 /*
 |--------------------------------------------------------------------------
 | Admin Routes
