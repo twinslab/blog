@@ -9,7 +9,15 @@ Feel free to open pull requests or issues.
 
 ## Usage
 
-TODO
+### 1. Installation
+
+1. `git clone git@github.com:twinslab/blog.git <dirname>`
+2. `cd <dirname> && composer install`
+3. `touch storage/database.sqlite`
+4. `php artisan migrate`
+5. Create a user
+
+Have fun while blogging!
 
 ## License
 
