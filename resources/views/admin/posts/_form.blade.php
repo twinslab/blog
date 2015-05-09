@@ -28,7 +28,19 @@
 
 @section('scripts')
     <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0-rc.1/js/select2.min.js"></script>
+
+
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/editor/0.1.0/editor.css">
+    <script src="//cdn.jsdelivr.net/editor/0.1.0/editor.js"></script>
+    <script src="//cdn.jsdelivr.net/editor/0.1.0/marked.js"></script>
+
     <script>
+        // select2 tags
         $('#tags').select2();
+
+        // markdown editor
+        var editor = new Editor();
+            editor.render();
     </script>
+
 @stop

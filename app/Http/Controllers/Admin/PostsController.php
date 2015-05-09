@@ -3,6 +3,8 @@
 use App\Tag;
 use App\Post;
 use App\Http\Controllers\Controller;
+use HTMLPurifier;
+use HTMLPurifier_Config;
 use Illuminate\Http\Request;
 use League\CommonMark\CommonMarkConverter;
 
@@ -72,13 +74,30 @@ class PostsController extends Controller
 	public function store(Request $request, CommonMarkConverter $converter)
 	{
         $input = $request->all();
-        $tags = $input['tags'];
 
-        // Convert markdown to html and insert it in the input array
-        $input['content_html'] = $converter->convertToHtml($request->get('content_md'));
+        // Convert markdown to html
+        $dirtyHtml = $converter->convertToHtml($request->get('content_md'));
+
+        // Purify html
+        $config = HTMLPurifier_Config::createDefault();
+        $config->set('Core.EscapeInvalidTags', true); // escape instead deleting
+        //allow iframes from trusted sources
+        $config->set('HTML.SafeIframe', true);
+        $config->set('URI.SafeIframeRegexp', '%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/)%'); //allow YouTube and Vimeo
+
+        $purifier = new HTMLPurifier($config);
+        $purifiedHtml = $purifier->purify($dirtyHtml);
+
+        //and insert it in the input array
+        $input['content_html'] = $purifiedHtml;
 
         $post = $this->posts->create($input);
-        $post->tags()->attach($tags);
+
+        // if there are any tags attach them. This if exists cuz if there are not tags (e.g. fresh installed) an undefined index will be thrown
+        if(isset($input['tags']))
+        {
+            $post->tags()->attach($input['tags']);
+        }
 
 		return redirect()->route('admin.posts.index');
 	}
@@ -113,8 +132,20 @@ class PostsController extends Controller
 	{
         $post = $this->posts->find($id);
 
-        // Convert markdown to html and store in database
-        $post->content_html = $converter->convertToHtml($request->get('content_md'));
+        // Convert markdown to html
+        $dirtyHtml = $converter->convertToHtml($request->get('content_md'));
+
+        // Purify html
+        $config = HTMLPurifier_Config::createDefault();
+        $config->set('Core.EscapeInvalidTags', true); // escape instead deleting
+        //allow iframes from trusted sources
+        $config->set('HTML.SafeIframe', true);
+        $config->set('URI.SafeIframeRegexp', '%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/)%'); //allow YouTube and Vimeo
+
+        $purifier = new HTMLPurifier($config);
+        $purifiedHtml = $purifier->purify($dirtyHtml);
+
+        $post->content_html = $purifiedHtml;
 
         $post->update($request->all());
 

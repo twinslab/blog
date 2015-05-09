@@ -6,7 +6,7 @@
             <h1>{{ $post->title }}</h1>
 
             <article>
-                {{ $post->content_html }}
+                {!! $post->content_html !!}
             </article>
         </div>
     </div>
