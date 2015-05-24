@@ -26,7 +26,7 @@ class StoreBlogPostRequest extends Request {
 			'title' => 'required|unique:posts|max:255',
             'slug' => 'required|unique:posts|max:255|alpha_dash',
             'content_md' => 'required',
-            'tags' => 'exists:tags,name'
+            'tags' => 'exists:tags,id'
 		];
 	}
 

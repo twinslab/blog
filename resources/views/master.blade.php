@@ -8,10 +8,11 @@
 	<meta name="description" content="{{ $pageDesc or Lang::get('defaults.pageDesc') }}">
 	<title>{{ $pageTitle or Lang::get('defaults.pageTitle') }} | Blog</title>
 
-	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Ubuntu&subset=latin,greek"/>
-	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
-	<link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0-rc.1/css/select2.min.css" rel="stylesheet" />
-	<link rel="stylesheet" href="{!! asset('assets/css/main.css') !!}"/>
+	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Ubuntu&subset=latin,greek">
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/3.5.2/select2.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-css/1.4.6/select2-bootstrap.min.css">
+	<link rel="stylesheet" href="{!! asset('assets/css/main.css') !!}">
 </head>
 <body>
 	@include('includes.nav')

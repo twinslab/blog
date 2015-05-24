@@ -27,8 +27,7 @@
 <input type="submit" value="{!! $submitText !!}" class="btn btn-primary">
 
 @section('scripts')
-    <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0-rc.1/js/select2.min.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/3.5.2/select2.min.js"></script>
 
     <link rel="stylesheet" href="//cdn.jsdelivr.net/editor/0.1.0/editor.css">
     <script src="//cdn.jsdelivr.net/editor/0.1.0/editor.js"></script>
@@ -36,7 +35,8 @@
 
     <script>
         // select2 tags
-        $('#tags').select2();
+        var placeholder = "Select a tag...";
+        $( "#tags" ).select2( { placeholder: placeholder } );
 
         // markdown editor
         var editor = new Editor();
