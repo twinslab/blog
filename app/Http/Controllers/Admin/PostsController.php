@@ -76,26 +76,29 @@ class PostsController extends Controller
         $input = $request->all();
 
         // Convert markdown to html
-        $dirtyHtml = $converter->convertToHtml($request->get('content_md'));
+        $dirtyHtml = $converter->convertToHtml($input['content_md']);
 
         // Purify html
         $config = HTMLPurifier_Config::createDefault();
-        $config->set('Core.EscapeInvalidTags', true); // escape instead deleting
-        //allow iframes from trusted sources
+
+        // Escape instead of deleting
+        $config->set('Core.EscapeInvalidTags', true);
+
+        // Allow iframes from trusted sources
         $config->set('HTML.SafeIframe', true);
-        $config->set('URI.SafeIframeRegexp', '%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/)%'); //allow YouTube and Vimeo
+        // Allow YouTube and Vimeo
+        $config->set('URI.SafeIframeRegexp', '%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/)%');
 
         $purifier = new HTMLPurifier($config);
         $purifiedHtml = $purifier->purify($dirtyHtml);
 
-        //and insert it in the input array
+        // Insert purified HTML in the input array
         $input['content_html'] = $purifiedHtml;
 
         $post = $this->posts->create($input);
 
-        // if there are any tags attach them. This if exists cuz if there are not tags (e.g. fresh installed) an undefined index will be thrown
-        if(isset($input['tags']))
-        {
+        // Attach any tags if they exist
+        if (isset($input['tags'])) {
             $post->tags()->attach($input['tags']);
         }
 
@@ -138,9 +141,12 @@ class PostsController extends Controller
         // Purify html
         $config = HTMLPurifier_Config::createDefault();
         $config->set('Core.EscapeInvalidTags', true); // escape instead deleting
-        //allow iframes from trusted sources
+
+        // Allow iframes from trusted sources
         $config->set('HTML.SafeIframe', true);
-        $config->set('URI.SafeIframeRegexp', '%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/)%'); //allow YouTube and Vimeo
+
+        // Allow YouTube and Vimeo
+        $config->set('URI.SafeIframeRegexp', '%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/)%');
 
         $purifier = new HTMLPurifier($config);
         $purifiedHtml = $purifier->purify($dirtyHtml);
@@ -149,8 +155,8 @@ class PostsController extends Controller
 
         $post->update($request->all());
 
-        // sync makes sure that there aren't duplicate entries for a post-tag pair in the pivot table
         if(isset($input['tags'])) {
+            // Sync makes sure that there are no duplicate entries for a post-tag pair in the pivot table
             $post->tags()->sync($request->input('tags'));
         }
 
