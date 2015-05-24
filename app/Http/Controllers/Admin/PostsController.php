@@ -150,7 +150,9 @@ class PostsController extends Controller
         $post->update($request->all());
 
         // sync makes sure that there aren't duplicate entries for a post-tag pair in the pivot table
-        $post->tags()->sync($request->input('tags'));
+        if(isset($input['tags'])) {
+            $post->tags()->sync($request->input('tags'));
+        }
 
         return redirect()->route('admin.posts.index');
 	}
