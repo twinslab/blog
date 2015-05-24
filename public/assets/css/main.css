@@ -32,8 +32,13 @@ textarea {
     resize: vertical;
 }
 
-ul#tags li > span{
+ul#tags li > span {
     display: inline-block;
     float:left;
     margin-right:10px;
+}
+
+#disqus_thread {
+    border-top: 10px solid #008000;
+    margin-top: 50px;
 }
