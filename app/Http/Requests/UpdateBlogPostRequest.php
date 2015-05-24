@@ -30,7 +30,7 @@ class UpdateBlogPostRequest extends Request {
             'title' => 'required|unique:posts,title,'.$post_id.'|max:255',
             'slug' => 'required|unique:posts,slug,'.$post_id.'|max:255|alpha_dash',
             'content_md' => 'required',
-            'tags' => 'exists:tags,name'
+            'tags' => 'exists:tags,id'
         ];
 	}
 
