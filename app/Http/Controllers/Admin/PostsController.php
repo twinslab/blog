@@ -69,7 +69,7 @@ class PostsController extends Controller
      * POST /admin/posts
      * Store a newly created post in database.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param \App\Http\Requests\StoreBlogPostRequest $request
      * @param \League\CommonMark\CommonMarkConverter $converter
      * @return \Illuminate\View\View
      */
@@ -104,6 +104,8 @@ class PostsController extends Controller
             $post->tags()->attach($input['tags']);
         }
 
+        flash()->success('Post successfully created!');
+
 		return redirect()->route('admin.posts.index');
 	}
 
@@ -128,7 +130,7 @@ class PostsController extends Controller
      * PUT /admin/posts/{id}
      * Update the specified post in database.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param \App\Http\Requests\UpdateBlogPostRequest $request
      * @param \League\CommonMark\CommonMarkConverter $converter
      * @param  int $id
      * @return \Illuminate\View\View
@@ -162,6 +164,8 @@ class PostsController extends Controller
             $post->tags()->sync($request->input('tags'));
         }
 
+        flash()->success('The post was successfully updated!');
+
         return redirect()->route('admin.posts.index');
 	}
 
@@ -175,6 +179,8 @@ class PostsController extends Controller
 	public function destroy($id)
 	{
         $this->posts->destroy($id);
+
+        flash()->info('The post was successfully moved to Trash.');
 
         return redirect()->route('admin.posts.index');
 	}
@@ -206,6 +212,8 @@ class PostsController extends Controller
             $post->forceDelete();
         }
 
+        flash()->info('Trash is now empty.');
+
         return redirect()->route('posts.trash.index');
     }
 
@@ -213,11 +221,14 @@ class PostsController extends Controller
      * PUT /admin/posts/trash/{id}
      * Restore soft-deleted post.
      *
+     * @param int $id
      * @return \Illuminate\Http\RedirectResponse
      */
     public function restoreTrashed($id)
     {
         $this->posts->onlyTrashed()->find($id)->restore();
+
+        flash()->info('All trashed posts were successfully restored.');
 
         return redirect()->route('posts.trash.index');
     }
@@ -226,11 +237,14 @@ class PostsController extends Controller
      * DELETE /admin/posts/trash/{id}
      * Hard delete a soft-deleted post.
      *
+     * @param int $id
      * @return \Illuminate\Http\RedirectResponse
      */
     public function removeTrashed($id)
     {
         $this->posts->onlyTrashed()->find($id)->forceDelete();
+
+        flash()->info('The post was permanently deleted.');
 
         return redirect()->route('posts.trash.index');
     }

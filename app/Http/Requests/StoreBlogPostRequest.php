@@ -30,4 +30,18 @@ class StoreBlogPostRequest extends Request {
 		];
 	}
 
+	/**
+	 * Overwrite the response method so we are able to pass a custom error message.
+	 *
+	 * {@inheritdoc}
+	 */
+	public function response(array $errors)
+	{
+		flash()->error('There errors. Please fix them.');
+
+		return $this->redirector->to($this->getRedirectUrl())
+			->withInput($this->except($this->dontFlash))
+			->withErrors($errors, $this->errorBag);
+	}
+
 }

@@ -15,10 +15,11 @@
 </head>
 <body>
 	@include('includes.nav')
-	@include('includes.alerts')
 
 	<main>
 		<div class="container">
+			@include('flash::message')
+
 			@yield('content')
 		</div>
 	</main>
