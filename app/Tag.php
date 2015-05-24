@@ -9,7 +9,7 @@ class Tag extends Model
      *
      * @var string
      */
-    protected $table = 'tags'   ;
+    protected $table = 'tags';
 
     /**
      * The fields that are mass assignable.
