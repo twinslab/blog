@@ -25,7 +25,7 @@ class PostsTableSeeder extends Seeder {
      */
     public function run()
     {
-        //DB::table('posts')->truncate();
+        DB::table('posts')->delete();
 
         $faker = Faker\Factory::create();
 
