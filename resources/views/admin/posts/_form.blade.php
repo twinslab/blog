@@ -1,21 +1,21 @@
 <div class="form-group">
-    <label for="title">Title</label>
-    <input type="text" value="{{ isset($post->title)?$post->title:null }}" name="title" id="title" class="form-control">
+    {!! Form::label('title', 'Title:') !!}
+    {!! Form::text('title', isset($post->title)?$post->title:null, ['class' => 'form-control']) !!}
 </div>
 
 <div class="form-group">
-    <label for="slug">Slug</label>
-    <input type="text" value="{{ isset($post->slug)?$post->slug:null }}" name="slug" id="slug" class="form-control">
+    {!! Form::label('slug', 'Slug:') !!}
+    {!! Form::text('slug', isset($post->slug)?$post->slug:null, ['class' => 'form-control']) !!}
 </div>
 
 <div class="form-group">
-    <label for="content_md">Content</label>
-    <textarea name="content_md" id="content_md" class="form-control" rows="15">{{ isset($post->content_md)?$post->content_md:null }}</textarea>
+    {!! Form::label('content_md', 'Content:') !!}
+    {!! Form::textarea('content_md', isset($post->content_md)?$post->content_md:null, ['class' => 'form-control', 'rows' => 15]) !!}
 </div>
 
 @unless (empty($tags))
     <div class="form-group">
-        <label for="tags">Tags</label>
+        {!! Form::label('tags', 'Tags:') !!}
         <select name="tags[]" id="tags" class="form-control" multiple>
             @foreach ($tags as $id => $name)
                 <option {{ !empty($post) && in_array($id, $post->tags->lists('id')) ? 'selected' : '' }} value="{{ $id }}">{{ $name }}</option>

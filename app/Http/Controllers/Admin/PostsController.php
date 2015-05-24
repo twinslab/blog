@@ -1,5 +1,7 @@
 <?php namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\StoreBlogPostRequest;
+use App\Http\Requests\UpdateBlogPostRequest;
 use App\Tag;
 use App\Post;
 use App\Http\Controllers\Controller;
@@ -71,7 +73,7 @@ class PostsController extends Controller
      * @param \League\CommonMark\CommonMarkConverter $converter
      * @return \Illuminate\View\View
      */
-	public function store(Request $request, CommonMarkConverter $converter)
+	public function store(StoreBlogPostRequest $request, CommonMarkConverter $converter)
 	{
         $input = $request->all();
 
@@ -131,7 +133,7 @@ class PostsController extends Controller
      * @param  int $id
      * @return \Illuminate\View\View
      */
-	public function update(Request $request, CommonMarkConverter $converter, $id)
+	public function update(UpdateBlogPostRequest $request, CommonMarkConverter $converter, $id)
 	{
         $post = $this->posts->find($id);
 
