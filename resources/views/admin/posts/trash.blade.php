@@ -3,14 +3,14 @@
 @section('content')
     <div class="row">
         <div class="col-md-12">
-            <h2>Trash</h2>
+            <h1>Trash</h1>
 
              @if($posts->isEmpty())
                 <p>Nothing here.</p>
-            @else
+             @else
 
                 {!! Form::open(['method' => 'DELETE']) !!}
-                    <button type="submit" class="btn btn-xs btn-danger"
+                    <button type="submit" class="btn btn-danger"
                     onclick="return confirm('Are you sure you want to permanently delete all posts?');">Empty Trash</button>
                 {!! Form::close() !!}
 
@@ -26,7 +26,7 @@
                         @foreach($posts as $post)
                             <tr>
                                 <td>{{ $post->title }}</td>
-                                <td>{{ $post->created_at->diffForHumans() }}</td>
+                                <td>{!! $post->created_at->diffForHumans() !!}</td>
                                 <td>
                                     <ul class="list-inline">
                                         <li>

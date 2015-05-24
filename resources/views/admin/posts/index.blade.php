@@ -3,11 +3,11 @@
 @section('content')
     <div class="row">
         <div class="col-md-12">
+            <h1>All posts</h1>
 
-            <a href="{{ route('admin.posts.create') }}">New</a>
-            <a href="{{ route('posts.trash.index') }}">Trash</a>
+            <a href="{!! route('admin.posts.create') !!}" class="btn btn-default">New</a>
+            <a href="{!! route('posts.trash.index') !!}" class="btn btn-default">Trash</a>
 
-            <h2>All posts</h2>
             @if($posts->isEmpty())
                 <p>There no posts. Y u no blogging?</p>
             @else
@@ -23,11 +23,11 @@
                         @foreach($posts as $post)
                             <tr>
                                 <td>{{ $post->title }}</td>
-                                <td>{{ $post->created_at->diffForHumans() }}</td>
+                                <td>{!! $post->created_at->diffForHumans() !!}</td>
                                 <td>
                                     <ul class="list-inline">
                                         <li>
-                                            <a href="{{ route('admin.posts.edit', $post->id) }}" class="btn btn-xs btn-default" title="Edit">
+                                            <a href="{!! route('admin.posts.edit', $post->id) !!}" class="btn btn-xs btn-default" title="Edit">
                                                 <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                                             </a>
                                         </li>
